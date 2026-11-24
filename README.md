@@ -225,19 +225,58 @@ Obscura/
 └── README.md
 ```
 
-## 8. Testing Evidence
+## Demo Database Seeding
+
+Obscura includes an idempotent SQL seeder (`seed.sql`) for local security testing.
+
+The seeder creates:
+- 1 administrator account
+- 2 regular user accounts
+- 124 demo notes (41 admin, 42 Alice, 41 Bob)
+
+### Demo Accounts
+
+| Username | Password | Role |
+|---|---|---|
+| demo_admin | ObscuraDemo2026! | Admin |
+| demo_alice | ObscuraDemo2026! | User |
+| demo_bob | ObscuraDemo2026! | User |
+
+**Warning:** These credentials are for local educational testing only.
+
+## 8. Run the Seeder
+
+Start the Docker environments first.
+
+**Vulnerable:**
+
+```powershell
+Get-Content .\seed.sql -Raw | docker compose -f vulnerable/compose.yaml exec -T db mysql -uobscura -pobscura_local obscura
+```
+
+**Secure:**
+
+```powershell
+Get-Content .\seed.sql -Raw | docker compose -f secure/compose.yaml exec -T db mysql -uobscura -pobscura_local obscura
+```
+
+The seeder can be executed multiple times without creating duplicate demo users or notes.
+
+Existing non-demo data is preserved.
+
+## 9. Testing Evidence
 
 Screenshots of vulnerable exploitation and secure mitigation are organized under `report/screenshots/`, grouped by attack.
 
 The testing evidence demonstrates the differences between the two implementations.
 
-## 9. Security and Scope
+## 10. Security and Scope
 
 Obscura is a controlled educational lab. The vulnerable version intentionally contains insecure code and should never be exposed to the public internet.
 
 All attacks and tests are intended for authorized local environments.
 
-## 10. Course Information
+## 11. Course Information
 
 **Course:** CSE423  
 **Project:** Obscura — Vulnerable and Secure Notes Web Application
