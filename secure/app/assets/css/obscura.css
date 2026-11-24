@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#0e1020; --bg2:#15182b; --card:#1b1f36; --card-hi:#222844;
+  --line:#2b3150; --text:#edf0ff; --muted:#9aa0c4;
+  --accent:#8b7bff; --accent-2:#c79bff; --danger:#ff6b8a;
+  --p1:#b9a7ff; --p2:#9fe6cf; --p3:#ffb3d1; --p4:#ffd59e; --p5:#a9d4ff; --p6:#ffc6e8;
+}
+*{box-sizing:border-box}
+body{
+  background:
+    radial-gradient(900px 500px at 85% -5%, rgba(167,139,255,.18), transparent 60%),
+    radial-gradient(700px 500px at 0% 100%, rgba(159,230,207,.10), transparent 55%),
+    var(--bg);
+  color:var(--text); font-family:'Nunito',system-ui,sans-serif; min-height:100vh;
+}
+h1,h2,h3,.navbar-brand{font-family:'Baloo 2',cursive}
+.obscura-nav{background:rgba(14,16,32,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:.6rem 0}
+.navbar-brand{font-weight:700;letter-spacing:1.5px;font-size:1.25rem;color:var(--text);display:flex;align-items:center;gap:.5rem}
+.navbar-brand:hover{color:var(--text)}
+.brand-dot{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 16px var(--accent)}
+.obscura-search{max-width:340px;flex:1}
+.form-control{background:var(--bg2);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:.55rem .9rem}
+.form-control:focus{background:var(--bg2);border-color:var(--accent);color:var(--text);box-shadow:0 0 0 .22rem rgba(139,123,255,.25)}
+.form-control::placeholder{color:var(--muted)}
+.user-chip{color:var(--muted);font-size:.85rem;padding:.35rem .8rem;border:1px solid var(--line);border-radius:999px;background:var(--bg2)}
+.obscura-main{padding:2.4rem 0 4rem;max-width:960px}
+.page-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.8rem;gap:1rem;flex-wrap:wrap}
+.page-title{font-weight:700;font-size:2rem;margin:0}
+.page-sub{color:var(--muted);margin:.1rem 0 0;font-size:.95rem}
+.btn-accent{background:linear-gradient(135deg,var(--accent),var(--accent-2));border:0;color:#fff;font-weight:700;font-family:'Baloo 2';border-radius:14px;padding:.6rem 1.3rem;box-shadow:0 6px 18px rgba(139,123,255,.35);transition:.18s}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(139,123,255,.5);color:#fff}
+.btn-ghost{background:var(--bg2);border:1px solid var(--line);color:var(--text);border-radius:14px;font-weight:600}
+.btn-ghost:hover{background:var(--card-hi);color:var(--text)}
+.btn-danger{background:transparent;border:1px solid var(--danger);color:var(--danger);border-radius:14px;font-weight:600}
+.btn-danger:hover{background:var(--danger);color:#fff}
+.note-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.1rem}
+.note-card{
+  --c:var(--p1);
+  background:linear-gradient(180deg, color-mix(in srgb, var(--c) 10%, var(--card)), var(--card));
+  border:1px solid var(--line); border-top:3px solid var(--c);
+  border-radius:18px; padding:1.2rem 1.3rem; text-decoration:none; color:var(--text);
+  transition:.18s; display:flex; flex-direction:column; min-height:150px; position:relative; overflow:hidden;
+}
+.note-card::after{content:"";position:absolute;inset:0;background:radial-gradient(400px 120px at 100% 0%, color-mix(in srgb, var(--c) 18%, transparent), transparent 70%);opacity:0;transition:.18s;pointer-events:none}
+.note-card:hover{transform:translateY(-4px);border-color:var(--c);box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.note-card:hover::after{opacity:1}
+.note-card h3{font-size:1.15rem;margin:0 0 .5rem;color:var(--c);display:flex;align-items:center;gap:.4rem}
+.note-card h3::before{content:"🗒️";font-size:1rem}
+.note-card p{color:var(--muted);font-size:.9rem;margin:0;flex:1;line-height:1.55}
+.note-date{color:var(--muted);font-size:.75rem;margin-top:.9rem;opacity:.8}
+.note-card:nth-child(6n+1){--c:var(--p1)} .note-card:nth-child(6n+2){--c:var(--p2)}
+.note-card:nth-child(6n+3){--c:var(--p3)} .note-card:nth-child(6n+4){--c:var(--p4)}
+.note-card:nth-child(6n+5){--c:var(--p5)} .note-card:nth-child(6n+6){--c:var(--p6)}
+.empty{text-align:center;padding:4rem 1rem;color:var(--muted)}
+.empty::before{content:"🐱";display:block;font-size:3.5rem;margin-bottom:.8rem}
+.empty p{margin-bottom:1.1rem;font-size:1.05rem}
+.note-form{display:flex;flex-direction:column;gap:1.1rem;max-width:740px}
+.note-form .form-control-lg{font-family:'Baloo 2';font-size:1.3rem}
+.note-form textarea{font-family:ui-monospace,'JetBrains Mono',monospace;line-height:1.6;resize:vertical;border-radius:16px}
+.search-bar{display:flex;gap:.7rem;max-width:640px;margin-bottom:1.6rem}
+.note-view{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:2rem 2.2rem;max-width:780px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.note-body{line-height:1.8;color:var(--text);margin:1rem 0 1.6rem}
+.note-body h1,.note-body h2,.note-body h3{margin:1.2rem 0 .6rem;color:var(--accent-2)}
+.note-body code{background:var(--bg2);padding:.15rem .45rem;border-radius:8px;color:#ffd59e}
+.note-body pre{background:var(--bg2);padding:1rem;border-radius:14px;overflow-x:auto}
+.note-body ul,.note-body ol{padding-left:1.4rem}
+.back-link{color:var(--accent-2);text-decoration:none;font-weight:600}
+.back-link:hover{color:var(--accent)}
+.obscura-footer{border-top:1px solid var(--line);color:var(--muted);font-size:.82rem;padding:1.4rem 0;text-align:center;margin-top:2.5rem}
+.alert-danger{background:rgba(255,107,138,.12);border:1px solid var(--danger);color:#ffc0cd;border-radius:14px}
