@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/auth.php';
 
 require_login();
 
-// Intentionally vulnerable: user-controlled file path Xdd
+// Intentionally vulnerable: user-controlled file path.
 $filename = $_GET['file'] ?? 'welcome.txt';
 
 $exportDirectory = __DIR__ . '/exports/';

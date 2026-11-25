@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute($params);
 
-                // Refresh session role after the database update xD
+                // Refresh the session role after updating the database.
                 $stmt = $pdo->prepare(
                     'SELECT id, username, email, role FROM users WHERE id = ?'
                 );
@@ -72,74 +72,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profile | Obscura</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #10131c;
-            color: white;
-            max-width: 500px;
-            margin: 70px auto;
-            padding: 20px;
-        }
-        input, button {
-            box-sizing: border-box;
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0 16px;
-            border-radius: 6px;
-        }
-        button {
-            background: #536dfe;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        a { color: #9baaff; }
-        .success { color: #81d9a0; }
-        .error { color: #ff8585; }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/obscura.css" rel="stylesheet">
 </head>
 <body>
-    <h1>OBSCURA</h1>
-    <h2>My Profile</h2>
+<div class="auth-layout">
+    <div class="auth-card profile-card">
+        <h1>OBSCURA</h1>
+        <h2>My Profile</h2>
 
-    <?php if ($message): ?>
-        <p class="success"><?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?></p>
-    <?php endif; ?>
+        <p>
+            <a href="dashboard.php">&larr; Back to Dashboard</a>
+        </p>
 
-    <?php if ($error): ?>
-        <p class="error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
-    <?php endif; ?>
+        <?php if ($message): ?>
+            <div class="alert alert-success">
+                <?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?>
+            </div>
+        <?php endif; ?>
 
-    <p>Current role:
-        <strong><?= htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8') ?></strong>
-    </p>
+        <?php if ($error): ?>
+            <div class="alert alert-danger">
+                <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+            </div>
+        <?php endif; ?>
 
-    <form method="POST">
-        <label for="username">Username</label>
-        <input
-            id="username"
-            name="username"
-            value="<?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') ?>"
-            required
-        >
+        <p>
+            Current role:
+            <strong>
+                <?= htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8') ?>
+            </strong>
+        </p>
 
-        <label for="email">Email</label>
-        <input
-            id="email"
-            type="email"
-            name="email"
-            value="<?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8') ?>"
-            required
-        >
+        <form method="POST">
+            <label for="username">Username</label>
+            <input class="form-control"
+                   id="username"
+                   name="username"
+                   value="<?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') ?>"
+                   required maxlength="100">
 
-        <button type="submit">Save Changes</button>
-    </form>
+            <label for="email">Email</label>
+            <input class="form-control"
+                   id="email"
+                   type="email"
+                   name="email"
+                   value="<?= htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8') ?>"
+                   required maxlength="255">
+
+            <button class="btn btn-accent" type="submit">
+                Save Changes
+            </button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

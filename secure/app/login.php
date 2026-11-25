@@ -31,55 +31,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login | Obscura</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #10131c;
-            color: white;
-            max-width: 440px;
-            margin: 80px auto;
-            padding: 20px;
-        }
-        input, button {
-            box-sizing: border-box;
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 6px;
-        }
-        button {
-            background: #536dfe;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        a { color: #9baaff; }
-        .error { color: #ff8585; }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/obscura.css" rel="stylesheet">
 </head>
 <body>
-    <h1>OBSCURA</h1>
-    <h2>Log in</h2>
+<div class="auth-layout">
+    <div class="auth-card">
+        <h1>OBSCURA</h1>
+        <h2>Welcome back</h2>
 
-    <?php if ($error): ?>
-        <p class="error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
-    <?php endif; ?>
+        <?php if ($error): ?>
+            <div class="alert alert-danger">
+                <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
+            </div>
+        <?php endif; ?>
 
-    <form method="POST">
-        <label for="username">Username</label>
-        <input id="username" type="text" name="username" required>
+        <form method="POST">
+            <label for="username">Username</label>
+            <input class="form-control" id="username"
+                   type="text" name="username" required>
 
-        <label for="password">Password</label>
-        <input id="password" type="password" name="password" required>
+            <label for="password">Password</label>
+            <input class="form-control" id="password"
+                   type="password" name="password" required>
 
-        <button type="submit">Log in</button>
-    </form>
+            <button class="btn btn-accent" type="submit">
+                Log in
+            </button>
+        </form>
 
-    <p>Don't have an account? <a href="register.php">Register</a></p>
+        <p class="form-footer">
+            Don't have an account?
+            <a href="register.php">Register</a>
+        </p>
+    </div>
+</div>
 </body>
 </html>
