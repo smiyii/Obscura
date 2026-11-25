@@ -9,7 +9,7 @@ Other payloads that also work:
   [click](javascript:alert(1))
 
 Steps:
-- Log in as maria / Maria123!
+- Log in as demo_alice / ObscuraDemo2026!
 - New note, content = payload above, Save
 - Opening the note runs the script (alert shows the session cookie)
 - Stored = it runs for ANY user who opens the note (e.g. admin)
