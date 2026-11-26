@@ -227,7 +227,7 @@ Obscura/
 
 ## Demo Database Seeding
 
-Obscura includes an idempotent SQL seeder (`seed.sql`) for local security testing.
+Obscura automatically runs the SQL seeder (`seed.sql`) when a new Docker database is initialized. No manual seeding is required for a fresh installation.
 
 The seeder creates:
 - 1 administrator account
@@ -244,9 +244,9 @@ The seeder creates:
 
 **Warning:** These credentials are for local educational testing only.
 
-## 8. Run the Seeder
+## 8. Manual Seeding (Existing Databases Only)
 
-Start the Docker environments first.
+For an existing database that was created before automatic seeding was enabled, start the Docker environments first and run the appropriate command below. These commands are not required for a fresh installation.
 
 **Vulnerable:**
 
